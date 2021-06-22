@@ -1,7 +1,7 @@
 #include "holberton.h"
 
 /**
-  * main - Entry point
+  * Print the word "Holberton"
   *
   * Return: Always 0
   */
