@@ -1,11 +1,11 @@
 #include "holberton.h"
 
 /**
- * _isupper - check if a letter is upper
- * @c: The number to be checked
- *
- * Return: 1 if c is upper letter or 0 otherwise
- */
+  * _isupper - check if a letter is upper
+  * @c: The number to be checked
+  *
+  * Return: 1 if c is upper letter or 0 otherwise
+  */
 
 int _isupper(int c)
 {
@@ -15,5 +15,4 @@ int _isupper(int c)
     }
  
       return (0);
- 
 }
