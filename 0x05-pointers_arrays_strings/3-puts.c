@@ -1,19 +1,14 @@
 #include "holberton.h"
 
 /**
- *_puts - prints a string, to stdout
- *@str: value to be evaluate.
+ * _puts - prints a string with newline
+ * @str: the string to print
  *
- *Return: void 
+ * Return: void
  */
 void _puts(char *str)
 {
-	int l = 0;
-
-	while (*(str + l) != '\0')
-	{
-		_putchar(str[l]);
-		l++;
-	}
+	while (*str)
+		_putchar(*str++);
 	_putchar('\n');
 }
