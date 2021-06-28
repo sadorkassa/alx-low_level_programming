@@ -1,40 +1,45 @@
 #include "holberton.h"
 
 /**
- * _atoi - Convert a string to an integer.
- * @s: The pointer to convert
+ * _isdigit - checks if character is a digit
+ * @s: the character to check
  *
- * Return: An integer
+ * Return: 1 if digit, 0 otherwise
+ */
+int _isdigit(char s)
+{
+	return (s >= '0' && s <= '9');
+}
+
+/**
+ * _atoi - converts string to integer
+ * @s: the string
+ *
+ * Return: integer value of string
  */
 int _atoi(char *s)
 {
-	int c = 0;
-	unsigned int ni = 0;
-	int min = 1;
-	int isi = 0;
+	int i = 0, neg = 0, d;
+	int num = 0;
 
-	while (s[c])
+	while (s[i])
 	{
-		if (s[c] == 45)
+		if (s[i] == '-')
 		{
-			min *= -1;
+			neg++;
 		}
-
-		while (s[c] >= 48 && s[c] <= 57)
+		else if (_isdigit(s[i]))
 		{
-			isi = 1;
-			ni = (ni * 10) + (s[c] - '0');
-			c++;
-		}
-
-		if (isi == 1)
-		{
+			while (_isdigit(s[i]))
+			{
+				d = (s[i] - '0');
+				d = neg % 2 ? -d : d;
+				num = num * 10 + d;
+				i++;
+			}
 			break;
 		}
-
-		c++;
+		i++;
 	}
-
-	ni *= min;
-	return (ni);
+	return (num);
 }
