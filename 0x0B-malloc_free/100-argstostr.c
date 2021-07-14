@@ -1,54 +1,41 @@
-#include "holberton.h"
 #include <stdlib.h>
 
 /**
- * argstostr - Function that concatenates all the arguments of your program.
- *
- * @ac: int ac is the argument counter.
- *
- * @av: int **av is the argument vector.
- *
- * Return: Returns a pointer to a new str or NULL if it fails
+ *argstostr - concatenates all the arguments of your program.
+ *@ac: argc size double pointer
+ *@av: argv parameter double pointer
+ *Return: new strins by pointer
  */
-
 char *argstostr(int ac, char **av)
 {
-	int arg_c, arg_v, size;
-	int i = 0;
-	char *pnt;
+	char *ptr;
+	int i = 0, j = 0, k = 0;
 
 	if (ac == 0 || av == NULL)
 		return (NULL);
 
-	for (arg_c = 0; arg_c < ac; arg_c++)
+	for (i = 0; i < ac; i++)
 	{
-		for (arg_v = 0; av[arg_c][arg_v] != '\0'; arg_v++)
-		{
-			size++;
-		}
-		size++;
+		for (j = 0; av[i][j]; j++)
+			k++;
 	}
 
-	pnt = malloc(size * sizeof(char));
-
-	if (pnt == NULL)
+	ptr = malloc(sizeof(char) * (ac + k + 1));
+	if (!(ptr == NULL))
+	{
+		k = 0;
+		for (i = 0; i < ac; i++)
+		{
+			for (j = 0; av[i][j]; j++)
+			{
+				ptr[k] = av[i][j];
+				k++;
+			}
+			ptr[k] = '\n';
+			k++;
+		}
+		return (ptr);
+	}
+	else
 		return (NULL);
-
-	arg_c = 0;
-	while (arg_c < ac)
-	{
-		arg_v = 0;
-		while (av[arg_c][arg_v] != '\0')
-		{
-			pnt[i] = av[arg_c][arg_v];
-			i++;
-			arg_v++;
-		}
-		pnt[i] = '\n';
-		i++;
-		arg_c++;
-	}
-	i++;
-	pnt[i] = '\0';
-	return (pnt);
 }
