@@ -1,62 +1,54 @@
-#include <stdlib.h>
 #include "holberton.h"
+#include <stdlib.h>
 
 /**
- * _strlen - returns the length of a string
- * @s: string we find the length of
+ * argstostr - Function that concatenates all the arguments of your program.
  *
- * Return: length of the string
- */
-
-int _strlen(char *s)
-{
-	int x = 0;
-
-	while (*(s + x) != '\0')
-		x++;
-	return (x);
-}
-
-/**
- * argstostr - concatenates all the arguments of the program
- * @ac: number of arguments
- * @av: array of arguments
+ * @ac: int ac is the argument counter.
  *
- * Return: returns a pointer to the concatenated string
+ * @av: int **av is the argument vector.
+ *
+ * Return: Returns a pointer to a new str or NULL if it fails
  */
 
 char *argstostr(int ac, char **av)
 {
-	int x, y, z, length;
-	char *s;
-
-	length = 1;
-	z = 0;
+	int arg_c, arg_v, size;
+	int i = 0;
+	char *pnt;
 
 	if (ac == 0 || av == NULL)
 		return (NULL);
 
-	for (x = 0; x < ac; x++)
+	for (arg_c = 0; arg_c < ac; arg_c++)
 	{
-		length += _strlen(av[x]) + 1;
-	}
-
-	s = malloc(sizeof(char) * length);
-	if (s == NULL)
-	{
-		return (NULL);
-	}
-
-	for (x = 0; x < ac; x++)
-	{
-		for (y = 0; y < _strlen(av[x]); y++)
+		for (arg_v = 0; av[arg_c][arg_v] != '\0'; arg_v++)
 		{
-			s[z] = av[x][y];
-			z++;
+			size++;
 		}
-		s[z] = '\n';
-		z++;
+		size++;
 	}
-	s[z] = '\0';
-	return (s);
+
+	pnt = malloc(size * sizeof(char));
+
+	if (pnt == NULL)
+		return (NULL);
+
+	arg_c = 0;
+	while (arg_c < ac)
+	{
+		arg_v = 0;
+		while (av[arg_c][arg_v] != '\0')
+		{
+			pnt[i] = av[arg_c][arg_v];
+			i++;
+			arg_v++;
+		}
+		pnt[i] = '\n';
+		i++;
+		arg_c++;
+	}
+	i++;
+	pnt[i] = '\0';
+	return (pnt);
 }
