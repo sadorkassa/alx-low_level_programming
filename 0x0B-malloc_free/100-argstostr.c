@@ -1,44 +1,62 @@
-#include "holberton.h"
-#include <stdio.h>
 #include <stdlib.h>
+#include "holberton.h"
 
 /**
- * *argstostr - function that concatenates all the arguments of your program.
- * @ac: parameter used to hold the number of arguments.
- * @av: strings of arguments that were passed in.
- * Return: t.
+ * _strlen - returns the length of a string
+ * @s: string we find the length of
+ *
+ * Return: length of the string
  */
+
+int _strlen(char *s)
+{
+	int x = 0;
+
+	while (*(s + x) != '\0')
+		x++;
+	return (x);
+}
+
+/**
+ * argstostr - concatenates all the arguments of the program
+ * @ac: number of arguments
+ * @av: array of arguments
+ *
+ * Return: returns a pointer to the concatenated string
+ */
+
 char *argstostr(int ac, char **av)
 {
-	int a;
-	int b;
-	char *t;
-	int index;
-	int c = 0;
+	int x, y, z, length;
+	char *s;
 
-	index = 0;
+	length = 1;
+	z = 0;
+
 	if (ac == 0 || av == NULL)
 		return (NULL);
-	for (a = 0; a < ac; a++)
+
+	for (x = 0; x < ac; x++)
 	{
-		for (b = 0; av[a][b] != '\0'; b++)
-			;
-		(c = c + b);
+		length += _strlen(av[x]) + 1;
 	}
-	t = malloc(sizeof(char) * (ac + c + 1));
-	if (t == NULL)
+
+	s = malloc(sizeof(char) * length);
+	if (s == NULL)
+	{
 		return (NULL);
-	for (a = 0; a < ac; a++)
-	{
-		for (b = 0; av[a][b] != '\0'; b++, index++)
-			t[index] = av[a][b];
-		t[index] = '\n';
-		(index = index + 1);
 	}
-	return (t);
+
+	for (x = 0; x < ac; x++)
+	{
+		for (y = 0; y < _strlen(av[x]); y++)
+		{
+			s[z] = av[x][y];
+			z++;
+		}
+		s[z] = '\n';
+		z++;
+	}
+	s[z] = '\0';
+	return (s);
 }
- /**
- * for loop								\
- * av is a big array [a] look through av[a] to know what to put in it.
- * b is the smaller
- */
