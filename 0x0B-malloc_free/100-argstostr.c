@@ -1,43 +1,86 @@
 #include "holberton.h"
-/**
- * argstostr - prints args
- * @ac: takes in width of grid
- * @av: height of grid
- * Return: the args one line at a time
- */
 
+char *_strcat(char *dest, char *src);
+
+/**
+ * argstostr - concatenates all the arguments
+ * @av: the content
+ * @ac: the size of the content
+ *
+ * Return: a pointer to a new string
+ */
 char *argstostr(int ac, char **av)
 {
-	char *str;
-	int count = 0, a = 0, b = 0, c = 0;
+	char *new, *salt;
+	int i, j, k;
 
 	if (ac == 0 || av == NULL)
-		return (NULL);
-	while (a < ac)
 	{
-		b = 0;
-		while (av[a][b] != '\0')
+		return (NULL);
+	}
+	else
+	{
+		for (i = 0, k = 0 ; i < ac ; i++, k++)
 		{
-			count++;
-			b++;
+			for (j = 0 ; av[i][j] != '\0' ; j++, k++)
+			{
+				;
+			}
 		}
+		new = malloc(sizeof(char) * (k + 1));
+		salt = "\n";
+		for (i = 0 ; i < ac ; i++)
+		{
+			new = _strcat(new, av[i]);
+			if (new == NULL)
+			{
+				return (NULL);
+			}
+			if (i + 1 < ac)
+			{
+				new = _strcat(new, salt);
+				if (new == NULL)
+				{
+					return (NULL);
+				}
+			}
+		}
+
+	}
+	new = _strcat(new, salt);
+	if (new == NULL)
+	{
+		return (NULL);
+	}
+	return (new);
+}
+
+/**
+ * _strcat - concatenates two strings
+ * @dest: input parameter string
+ * @src: input parameter string
+ *
+ * Return: dest
+ */
+char *_strcat(char *dest, char *src)
+{
+	int a;
+	int b;
+
+	a = 0;
+
+	while (dest[a] != 0)
+	{
 		a++;
 	}
-	count = count + ac + 1;
-	str = malloc(sizeof(char) * count);
-	if (str == NULL)
+
+	b = 0;
+
+	while (src[b] != 0)
 	{
-		return (NULL);
+		dest[a] = src[b];
+		a++;
+		b++;
 	}
-	for (a = 0; a < ac; a++)
-	{
-		for (b = 0; av[a][b] != '\0'; b++)
-		{
-			str[c] = av[a][b];
-			c++;
-		}
-		str[c] = '\n';
-		c++;
-	}
-	return (str);
+	return (dest);
 }
