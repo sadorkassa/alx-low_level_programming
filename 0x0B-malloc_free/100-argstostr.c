@@ -1,54 +1,52 @@
-#include "holberton.h"
 #include <stdlib.h>
 
+int _strlen(char *s);
 /**
- * argstostr - Function that concatenates all the arguments of your program.
+ * argstostr - concatenates all arguments of the program
+ * @ac: the number of arguments
+ * @av: the given arguments
  *
- * @ac: int ac is the argument counter.
- *
- * @av: int **av is the argument vector.
- *
- * Return: Returns a pointer to a new str or NULL if it fails
+ * Return: a pointer to a new string, or NULL if it fails
  */
-
 char *argstostr(int ac, char **av)
 {
-	int arg_c, arg_v, size;
-	int i = 0;
-	char *pnt;
+	int i, j;
+	int k = 0;
+	int len = 0;
+	char *array;
 
 	if (ac == 0 || av == NULL)
 		return (NULL);
 
-	for (arg_c = 0; arg_c < ac; arg_c++)
+	for (i = 0; i < ac; i++)
+		len = len + _strlen(av[i]);
+
+	len = len + 1 + ac;
+
+	array = malloc(sizeof(char) * len);
+
+	for (i = 0; i < ac; i++)
 	{
-		for (arg_v = 0; av[arg_c][arg_v] != '\0'; arg_v++)
-		{
-			size++;
-		}
-		size++;
+		for (j = 0; av[i][j] != '\0'; j++, k++)
+			array[k] = av[i][j];
+		array[k] = '\n';
+		k++;
 	}
+	array[k] = '\0';
+	return (array);
+}
 
-	pnt = malloc(size * sizeof(char));
+/**
+ * _strlen - Returns the length of a string
+ * @s: The given string
+ *
+ * Return: The length of the string
+ */
+int _strlen(char *s)
+{
+	int total;
 
-	if (pnt == NULL)
-		return (NULL);
-
-	arg_c = 0;
-	while (arg_c < ac)
-	{
-		arg_v = 0;
-		while (av[arg_c][arg_v] != '\0')
-		{
-			pnt[i] = av[arg_c][arg_v];
-			i++;
-			arg_v++;
-		}
-		pnt[i] = '\n';
-		i++;
-		arg_c++;
-	}
-	i++;
-	pnt[i] = '\0';
-	return (pnt);
+	for (total = 0; s[total] != '\0'; total++)
+		;
+	return (total);
 }
