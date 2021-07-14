@@ -1,52 +1,42 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "holberton.h"
-#include "stdlib.h"
-
 /**
- * get_len - returns lenght of input string
- * @s: pointer to string
- * Return: integer length of s
- */
-int get_len(char *s)
-{
-	int len = 0;
-
-	while (*s++)
-		len++;
-	return (len);
-}
-
-
-/**
- * argstostr - concatenates all the arguments of your program
- * @ac: integer number of arguments
- * @av: pointer to array of strings
- *
- * Return: pointer to concatenated argument, separated by \n,
- *	   or NULL if either input is NULL or if malloc fails.
+ * argstostr - main entry
+ * @ac: int input
+ * @av: double pointer array
+ * Return: 0
  */
 char *argstostr(int ac, char **av)
 {
-	int i, j, len = 0;
-	char *ret, *ret0;
+	int i, n, k = 0, len = 0;
+	char *str;
 
-	if (ac < 1)
+	if (ac == 0 || av == NULL)
 		return (NULL);
 
 	for (i = 0; i < ac; i++)
-		len += 1 + get_len(av[i]);
-
-	ret = malloc(sizeof(char) * (len + 1));
-	ret0 = ret;
-	if (ret)
 	{
-		for (i = 0; i < ac; i++)
-		{
-			for (j = 0; av[i][j]; j++)
-				*ret++ = av[i][j];
-			*ret++ = '\n';
-		}
-		*ret = '\0';
+		for (n = 0; av[i][n]; n++)
+			len++;
 	}
-	return (ret0);
-}
+	len += ac;
 
+	str = malloc(sizeof(char) * len + 1);
+	if (str == NULL)
+		return (NULL);
+
+	for (i = 0; i < ac; i++)
+	{
+		for (n = 0; av[i][n]; n++)
+		{
+			str[k] = av[i][n];
+			k++;
+		}
+		if (str[k] == '\0')
+		{
+			str[k++] = '\n';
+		}
+	}
+	return (str);
+}
