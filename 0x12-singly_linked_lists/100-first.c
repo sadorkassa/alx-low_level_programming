@@ -1,14 +1,13 @@
-#include "lists.h"
+#include <stdio.h>
 
-void _constructor(void) __attribute__ ((constructor));
+void bootstrap(void) __attribute__ ((constructor));
 
 /**
- * _constructor - executes before main()
- *
+ * bootstrap - prints before the main function is executed.
  * Return: void
  */
-void _constructor(void)
+void bootstrap(void)
 {
-	printf("You're beat! and yet, you must allow,\n"
-		"I bore my house upon my back!\n");
+	printf("You're beat! and yet, you must allow,\n");
+	printf("I bore my house upon my back!\n");
 }
