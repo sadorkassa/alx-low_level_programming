@@ -1,50 +1,28 @@
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <unistd.h>
-
+#include "main.h"
 /**
- * read_textfile - read a text file and print to STDOUT.
- * @filename: path of filename to read.
- * @letters: number of letters to read and write.
+ * read_textfile - reads a text file and prints it ot the POSIX standard output
+ * @filename: the name of the file
+ * @letters: the number of letters it should read and print
  *
- * Return: 0 if `filename' is NULL orcannot be opened or read,
- * 0 if call to write fails or is less than the expected number
- * of bytes, or the total number of bytes used to call write.
+ * Return: returns the number of letters it could read and print
  */
+
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-	char *buf;
-	int fd;
-	ssize_t r, w;
+	char *buf = malloc(sizeof(char) * (letters + 1));
+	int fd, result;
 
-	if (filename == NULL)
+	if (filename == NULL || buf == NULL || letters <= 0)
 		return (0);
-	buf = malloc(sizeof(char) * letters);
-	if (buf == NULL)
-		return (0);
-	fd = open(filename, O_RDONLY);
+	fd = open(filename, O_RDONLY | O_CREAT, 00400);
 	if (fd == -1)
-	{
-		free(buf);
 		return (0);
-	}
-	r = read(fd, buf, letters);
-	if (r == -1)
-	{
-		free(buf);
-		close(fd);
+	result = read(fd, buf, letters);
+	if (result == -1)
 		return (0);
-	}
+	buf[letters + 1] = '\0';
+	write(STDOUT_FILENO, buf, result);
+	free(buf);
 	close(fd);
-	w = write(STDOUT_FILENO, buf, r);
-	if (w == -1)
-	{
-		free(buf);
-		return (0);
-	}
-	if (w != r)
-		return (0);
-	return (r);
+	return (result);
 }
