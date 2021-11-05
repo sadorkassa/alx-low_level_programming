@@ -1,43 +1,28 @@
 #include "lists.h"
-/**
- * listint_len - returns the number of elements in a linked list
- * @h: the linked list
- *
- * Return: returns the number of elements in a linked list
- */
-
-size_t listint_len(const listint_t *h)
-{
-	size_t i;
-
-	i = 0;
-	while (h != NULL)
-	{
-		i++;
-		h = h->next;
-	}
-	return (i);
-}
 
 /**
- * get_nodeint_at_index - returns the nth node of a linked list
- * @head: linked list
- * @index: the index of element to return
- *
- * Return: returns the nth node or NULL if it doesn't exist
+ * get_nodeint_at_index - returns the nth node of a listint_t linked list.
+ * @head: head of linked list
+ * @index: node index to return
+ * Return: node
  */
 
 listint_t *get_nodeint_at_index(listint_t *head, unsigned int index)
 {
-	unsigned int x;
+	listint_t *current;
 
-	if (index >= listint_len(head))
-		return (NULL);
-	x = 0;
-	while (x < index)
+	if (head == NULL)
+		return (0);
+
+	current = head;
+
+	while (index != 0)
 	{
-		head = head->next;
-		x++;
+		current = current->next;
+		index--;
+		if (current == NULL)
+			return (0); /*Out of range*/
 	}
-	return (head);
+
+	return (current);
 }
